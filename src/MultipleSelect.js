@@ -181,7 +181,7 @@ class MultipleSelect {
       row.text = this.options.textTemplate($elm)
       row.value = elm.value
       row.visible = true
-      row.selected = !!elm.selected
+      row.selected = Boolean(elm.selected)
       row.disabled = groupDisabled || elm.disabled
       row.classes = elm.getAttribute('class') || ''
       row.title = elm.getAttribute('title') || ''
@@ -199,7 +199,7 @@ class MultipleSelect {
       row.type = 'optgroup'
       row.label = this.options.labelTemplate($elm)
       row.visible = true
-      row.selected = !!elm.selected
+      row.selected = Boolean(elm.selected)
       row.disabled = elm.disabled
       row.children = []
       if (Object.keys($elm.data()).length) {
@@ -407,9 +407,9 @@ class MultipleSelect {
       const customStyle = this.options.styler(row)
       const style = customStyle ? `style="${customStyle}"` : ''
       const html = []
-      const group = this.options.hideOptgroupCheckboxes || this.options.single ?
-        `<span ${this.selectGroupName} data-key="${row._key}"></span>` :
-        `<input type="checkbox"
+      const group = this.options.hideOptgroupCheckboxes || this.options.single
+        ? `<span ${this.selectGroupName} data-key="${row._key}"></span>`
+        : `<input type="checkbox"
           ${this.selectGroupName}
           data-key="${row._key}"
           ${row.selected ? ' checked="checked"' : ''}
@@ -632,7 +632,7 @@ class MultipleSelect {
         .outerWidth(this.$parent.outerWidth())
     }
 
-    let maxHeight = this.options.maxHeight
+    let {maxHeight} = this.options
     if (this.options.maxHeightUnit === 'row') {
       maxHeight = this.$drop.find('>ul>li').first().outerHeight() *
         this.options.maxHeight
@@ -793,8 +793,8 @@ class MultipleSelect {
     const _setSelects = rows => {
       for (const row of rows) {
         let selected = values.includes(row._value || row.value)
-        if (!selected && row.value === +row.value + '') {
-          selected = values.includes(+row.value)
+        if (!selected && row.value === String(Number(row.value))) {
+          selected = values.includes(Number(row.value))
         }
         if (row.selected !== selected) {
           hasChanged = true
@@ -939,7 +939,8 @@ class MultipleSelect {
           const visible = this.options.customFilter(
             removeDiacritics(row.label.toLowerCase()),
             removeDiacritics(text),
-            row.label, originalText)
+            row.label, originalText
+          )
 
           row.visible = visible
           for (const child of row.children) {
@@ -950,7 +951,8 @@ class MultipleSelect {
             child.visible = this.options.customFilter(
               removeDiacritics(child.text.toLowerCase()),
               removeDiacritics(text),
-              child.text, originalText)
+              child.text, originalText
+            )
           }
           row.visible = row.children.filter(child => child.visible).length > 0
         }
@@ -958,7 +960,8 @@ class MultipleSelect {
         row.visible = this.options.customFilter(
           removeDiacritics(row.text.toLowerCase()),
           removeDiacritics(text),
-          row.text, originalText)
+          row.text, originalText
+        )
       }
     }
 

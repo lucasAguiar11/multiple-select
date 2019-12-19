@@ -140,7 +140,7 @@ const findByParam = (data, param, value) => {
   for (const row of data) {
     if (
       row[param] === value ||
-      row[param] === +row[param] + '' && +row[param] === value
+      row[param] === String(Number(row[param])) && Number(row[param]) === value
     ) {
       return row
     }
@@ -148,7 +148,7 @@ const findByParam = (data, param, value) => {
       for (const child of row.children) {
         if (
           child[param] === value ||
-          child[param] === +child[param] + '' && +child[param] === value
+          child[param] === String(Number(child[param])) && Number(child[param]) === value
         ) {
           return child
         }
@@ -158,12 +158,12 @@ const findByParam = (data, param, value) => {
 }
 
 const removeUndefined = obj => {
-  Object.keys(obj).forEach(key => obj[key] === undefined ? delete obj[key] : '')
+  Object.keys(obj).forEach(key => (obj[key] === undefined ? delete obj[key] : ''))
   return obj
 }
 
 const getDocumentClickEvent = (id = '') => {
-  id = id || `${+new Date()}${~~(Math.random() * 1000000)}`
+  id = id || `${Number(new Date())}${~~(Math.random() * 1000000)}`
   return `click.multiple-select-${id}`
 }
 

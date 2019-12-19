@@ -1,7 +1,6 @@
 import Constants from '../constants/index.js'
 
 class VirtualScroll {
-
   constructor (options) {
     this.rows = options.rows
     this.scrollEl = options.scrollEl

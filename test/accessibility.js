@@ -1,7 +1,7 @@
 // https://github.com/DevExpress/testcafe
 // https://devexpress.github.io/testcafe/documentation/test-api/
 // https://github.com/helen-dikareva/axe-testcafe
-import { axeCheck, createReport } from 'axe-testcafe'
+import {axeCheck, createReport} from 'axe-testcafe'
 
 /**
 * @external AxeResult
@@ -15,7 +15,7 @@ import { axeCheck, createReport } from 'axe-testcafe'
  */
 async function axeCheckWithConfig (t) {
   // https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#api-name-axerun
-  const { error, violations } = await axeCheck(t,
+  const {error, violations} = await axeCheck(t,
     // context: https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#context-parameter
     {
       exclude: [
